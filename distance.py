@@ -1,7 +1,7 @@
-from metrics import MetricsCalculator
+from metrics import WordDistanceCalculator
 
 
-class Levenshtein(MetricsCalculator):
+class EditDistanceCalculator(WordDistanceCalculator):
 
     def compute_distance(self, source, target):
         n = len(source)
@@ -35,7 +35,7 @@ class Levenshtein(MetricsCalculator):
 
 
 
-distancer = Levenshtein()
+
 # print(distancer.compute_distance("", "löffel"))
 # print(distancer.compute_distance("sitting", "kitten"))
 

@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 class SingletonClass:
     def __new__(cls):
@@ -7,6 +7,7 @@ class SingletonClass:
         return cls.instance
 
 
-class MetricsCalculator(ABC, SingletonClass):
+class WordDistanceCalculator(ABC, SingletonClass):
+    @abstractmethod
     def compute_distance(self, source, target):
         pass

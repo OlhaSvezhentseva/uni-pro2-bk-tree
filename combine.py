@@ -1,26 +1,25 @@
-from distance import Levenshtein
-from dice_similarity import DiceSimilarity
+from distance import EditDistanceCalculator
+from dice_similarity import DiceDistanceCalculator
 from node import Node
 import pickle
 
+METRIC_CLASSES = {
+	"dice": DiceDistanceCalculator,
+	"edit": EditDistanceCalculator,
+}
 
 
-def build_tree(words, metric):
+def build_tree(words, distance_calculator):
 	main_root = Node(words[0])
 	for word in words[1:]:
-		main_root.insert_word(word, main_root, metric)
+		distance = distance_calculator.compute_distance(word, main_root.name)
+		main_root.insert_word(word, main_root, distance)
 	return main_root
 
 
-def find_matches(root, word, d, metric,  matches=None):
-	# Legal to do this???
-	distance_calculator = None
+def find_matches(root, word, d, distance_calculator,  matches=None):
 	if matches is None:
 		matches = []
-	if metric == "levenshtein":
-		distance_calculator = Levenshtein()
-	elif metric == "dice":
-		distance_calculator = DiceSimilarity()
 	dist = distance_calculator.compute_distance(word, root.name)
 	if dist <= d:
 		matches.append(root.name)
@@ -29,7 +28,7 @@ def find_matches(root, word, d, metric,  matches=None):
 		# if d-dist <= distance_calculator.compute_distance(word, child.name) <= d+dist:
 		# Here changed d-dist ---> dist-d, because otherwise the value (untere Shranke) could be too high!
 		if dist-d <= distance_calculator.compute_distance(word, child.name) <= dist+d:
-			find_matches(child, word, d, metric, matches)
+			find_matches(child, word, d, distance_calculator, matches)
 
 	return matches
 
@@ -40,7 +39,8 @@ def find_matches(root, word, d, metric,  matches=None):
 with open("words", "rb") as fp:   # Unpickling
 	words = pickle.load(fp)
 
-main_root = build_tree(words[:10], "dice")
+metric = "dice"
+main_root = build_tree(words[:10], METRIC_CLASSES[metric]())
 # print(main_root.save_node(main_root))
 # print(main_root.children)
 
@@ -50,7 +50,7 @@ main_root = build_tree(words[:10], "dice")
 # print(find_matches(main_root, "hinein", 20))
 
 
-print(find_matches(main_root, "hinein", 0.5, "dice"))
+print(find_matches(main_root, "hinein", 0.5, METRIC_CLASSES[metric]()))
 
 
 

@@ -1,8 +1,8 @@
 import unittest
-from distance import Levenshtein
+from distance import EditDistanceCalculator
 
 
-DIST = Levenshtein()
+DIST = EditDistanceCalculator()
 
 
 class DistanceTestSuite(unittest.TestCase):

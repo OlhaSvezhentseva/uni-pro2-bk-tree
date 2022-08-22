@@ -1,7 +1,7 @@
-from metrics import MetricsCalculator
+from metrics import WordDistanceCalculator
 
 
-class DiceSimilarity(MetricsCalculator):
+class DiceDistanceCalculator(WordDistanceCalculator):
 
     def compute_distance(self, word1, word2):
         source__bigr = self.__get_bigrams(word1)
@@ -13,20 +13,13 @@ class DiceSimilarity(MetricsCalculator):
     @staticmethod
     def __get_bigrams(word):
         bigrams = set()
-        i = 0
-        while i < len(word) -1:
-            bigrams.add(word[i]+word[i+1])
-            i += 1
+        for i in range(0, len(word) - 1):
+            bigrams.add(word[i: i + 2])
         return bigrams
 
     @staticmethod
     def __compute_intersection(source_bigrams, target_bigrams):
-        intersect = 0
-        for element in source_bigrams:
-            for bigram in target_bigrams:
-                if element == bigram:
-                    intersect += 1
-        return intersect
+        return len(source_bigrams & target_bigrams)
 
 
 

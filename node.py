@@ -1,10 +1,10 @@
-from distance import Levenshtein
-from dice_similarity import DiceSimilarity
+from distance import EditDistanceCalculator
+from dice_similarity import DiceDistanceCalculator
 import pickle
 
 
-DIST = Levenshtein()
-SIM = DiceSimilarity()
+DIST = EditDistanceCalculator()
+SIM = DiceDistanceCalculator()
 
 class Node:
 
@@ -19,18 +19,12 @@ class Node:
 	# 	for key, value in self.children.items():
 	# 		print(key, value.name)
 
-	def insert_word(self, word, root, metric):
-		# Legal to do this?
-		distance = 0
-		if metric == "levenshtein":
-			distance = DIST.compute_distance(word, root.name)
-		elif metric == "dice":
-			distance = SIM.compute_distance(word, root.name)
+	def insert_word(self, word, root, distance):
+
 		if distance not in root.children:
 			root.children[distance] = Node(word)
-
 		else:
-			self.insert_word(word, root.children[distance], metric)
+			self.insert_word(word, root.children[distance], distance)
 
 	def get_tree_depth(self,root):
 		if len(root.children) == 0:
@@ -45,6 +39,13 @@ class Node:
 			return 1 + sum(self.get_number_nodes(x) for x in root.children.values())
 
 	def save_node(self, root, nodes=None):
+		# if nodes is None:
+		# 	nodes = []
+		# nodes.append(root)
+		# for child in root.children.values():
+		# 	self.save_node(child, nodes)
+		# with open("nodes", "wb") as fp:
+		# 	pickle.dump(nodes, fp)
 		if nodes is None:
 			nodes = []
 		nodes.append(root)
