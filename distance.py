@@ -1,19 +1,7 @@
-
-class SingletonClass:
-    def __new__(cls):
-        if not hasattr(cls, 'instance'):
-            cls.instance = super(SingletonClass, cls).__new__(cls)
-        return cls.instance
+from metrics import MetricsCalculator
 
 
-class DistanceCalculator(SingletonClass):
-
-    def __create_matrix(self, n, m):
-        row = [0] * (m+1)
-        matrix = []
-        for i in range(0, n+1):
-            matrix.append(row[:])
-        return matrix
+class Levenshtein(MetricsCalculator):
 
     def compute_distance(self, source, target):
         n = len(source)
@@ -33,12 +21,21 @@ class DistanceCalculator(SingletonClass):
                                         matrix[i-1][k-1] + replace_cost)  # Replace
         return matrix[-1][-1]
 
+    @staticmethod
+    def __create_matrix(n, m):
+        row = [0] * (m+1)
+        matrix = []
+        for i in range(0, n+1):
+            matrix.append(row[:])
+        return matrix
 
 
 
 
 
-distancer = DistanceCalculator()
+
+
+distancer = Levenshtein()
 # print(distancer.compute_distance("", "löffel"))
 # print(distancer.compute_distance("sitting", "kitten"))
 
@@ -46,8 +43,6 @@ distancer = DistanceCalculator()
 # print(distancer2.compute_distance("sit", "kit"))
 # dist3 = DistanceCalculator()
 # print(distancer is dist3)
-
-
 
 
 # wordlist = ["help", "hell", "hello", "loop", "troop"]

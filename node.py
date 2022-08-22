@@ -1,8 +1,10 @@
-from distance import DistanceCalculator
+from distance import Levenshtein
+from dice_similarity import DiceSimilarity
 import pickle
 
 
-DIST = DistanceCalculator()
+DIST = Levenshtein()
+SIM = DiceSimilarity()
 
 class Node:
 
@@ -17,13 +19,18 @@ class Node:
 	# 	for key, value in self.children.items():
 	# 		print(key, value.name)
 
-	def insert_word(self, word, root):
-		distance = DIST.compute_distance(word, root.name)
-		if distance not in list(root.children):
+	def insert_word(self, word, root, metric):
+		# Legal to do this?
+		distance = 0
+		if metric == "levenshtein":
+			distance = DIST.compute_distance(word, root.name)
+		elif metric == "dice":
+			distance = SIM.compute_distance(word, root.name)
+		if distance not in root.children:
 			root.children[distance] = Node(word)
 
 		else:
-			self.insert_word(word, root.children[distance])
+			self.insert_word(word, root.children[distance], metric)
 
 	def get_tree_depth(self,root):
 		if len(root.children) == 0:
@@ -43,7 +50,7 @@ class Node:
 		nodes.append(root)
 		for child in root.children.values():
 			self.save_node(child, nodes)
-		with open("nodes2", "wb") as fp:
+		with open("nodes", "wb") as fp:
 			pickle.dump(nodes, fp)
 
 # where to put method "open nodes" if the tree is already built?

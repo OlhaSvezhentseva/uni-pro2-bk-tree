@@ -1,8 +1,8 @@
 import unittest
-from distance import DistanceCalculator
+from distance import Levenshtein
 
 
-DIST = DistanceCalculator()
+DIST = Levenshtein()
 
 
 class DistanceTestSuite(unittest.TestCase):
