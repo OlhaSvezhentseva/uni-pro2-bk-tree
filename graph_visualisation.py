@@ -1,19 +1,5 @@
 import pickle
 import graphviz
-from node import Node
-from combine import build_tree
-
-# dot = graphviz.Digraph('BK-tree')
-# dot.format = 'png'
-#
-#
-# with open("words", "rb") as fp:   # Unpickling
-# 	words = pickle.load(fp)
-#
-# main_root = build_tree(words[:10])
-# dot.node(main_root.name)
-
-
 
 
 
@@ -22,7 +8,6 @@ def create_vis(main_root):
 	dot.format = 'png'
 	dot.node(main_root.name)
 	tree_vis(main_root, dot)
-
 
 
 def tree_vis(root, dot):
@@ -36,7 +21,7 @@ def tree_vis(root, dot):
 
 
 
-# From words
+# Create visualisation from words
 # with open("words", "rb") as fp:   # Unpickling
 # 	words = pickle.load(fp)
 #
@@ -46,25 +31,8 @@ def tree_vis(root, dot):
 
 
 
-# From nodes
-with open("nodes", "rb") as fp:
-	nodes = pickle.load(fp)
-main_root = nodes[0]
-create_vis(main_root)
-
-
-
-
-# a= dot.node('help')
-# b = dot.node('hell')
-# dot.edge('help', 'hell', '1')
-# dot.edges(['AB', 'AC', 'AD', 'BE', 'CF', 'CG', 'DH'])
-# print(dot.source)
-# print(dot.render(directory='doctest-output', view=True))
-
-
-
-
-
-
-
+# Create visualisation from pickle file, that contains main root
+# with open("main_root", "rb") as fp:
+# 	content = pickle.load(fp)
+# main_root = content
+# create_vis(main_root)

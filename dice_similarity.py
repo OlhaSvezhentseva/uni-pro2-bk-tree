@@ -8,7 +8,7 @@ class DiceDistanceCalculator(WordDistanceCalculator):
         target_bigr = self.__get_bigrams(word2)
         intersect = self.__compute_intersection(source__bigr,target_bigr)
         result = (2 * intersect)/(len(source__bigr) + len(target_bigr))
-        return 1 - round(result, 2)
+        return round(1 - result, 2)
 
     @staticmethod
     def __get_bigrams(word):
