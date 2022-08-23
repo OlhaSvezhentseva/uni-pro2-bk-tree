@@ -1,3 +1,6 @@
+# Olha Svezhentseva
+# 16.08.2022
+
 import pickle
 from nltk import word_tokenize
 

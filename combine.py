@@ -1,7 +1,10 @@
+# Olha Svezhentseva
+# 16.08.2022
+
 from distance import EditDistanceCalculator
 from dice_similarity import DiceDistanceCalculator
 from node import Node
-from graph_visualisation import create_vis, tree_vis
+from graph_visualisation import create_vis
 import pickle
 
 METRIC_CLASSES = {
@@ -31,29 +34,21 @@ def find_matches(root, word, d, distance_calculator,  matches=None):
 	return matches
 
 
-
-
-
-with open("words", "rb") as fp:   # Unpickling
-	words = pickle.load(fp)
-
 metric = "edit"
-main_root = build_tree(words[:10], METRIC_CLASSES[metric]())
+
+# Build tree from a list of words
+# with open("words", "rb") as fp:   # Unpickling
+# 	words = pickle.load(fp)
+# main_root = build_tree(words[:10], METRIC_CLASSES[metric]())
 # print(main_root.save_root(main_root))
-#
-#
-# with open("main_root", "rb") as fp:
-# 	content = pickle.load(fp)
-# main_root = content
+
+# Visualise tree from a pickle file where tree's root is saved
+with open("main_root", "rb") as fp:
+	main_root = pickle.load(fp)
 create_vis(main_root)
 
-# print(main_root.children)
-
-
-# print(f'Number of nodes: {main_root.get_number_nodes(main_root)}')
-# print(f'Tree depth: {main_root.get_tree_depth(main_root)}')
-# print(find_matches(main_root, "hinein", 20, METRIC_CLASSES[metric]()))
-
-#
-# print(find_matches(main_root, "hinein", 4, METRIC_CLASSES[metric]()))
+# With message dict or without?
+print(f'Number of nodes: {main_root.get_number_nodes(main_root)}')
+print(f'Tree depth: {main_root.get_tree_depth(main_root)}')
+print(find_matches(main_root, "hinein", 4, METRIC_CLASSES[metric]()))
 

@@ -1,38 +1,27 @@
-import pickle
+# Olha Svezhentseva
+# 16.08.2022
+
 import graphviz
+from node import Node
 
 
-
-def create_vis(main_root):
+def create_vis(main_root: Node, output_dir: str = 'doctest-output') -> None:
+	"""
+	The method creates a visualisation of a BK-tree.
+	Visualisation is saved as a PNG file to output_dir.
+	"""
 	dot = graphviz.Digraph('BK-tree')
 	dot.format = 'png'
 	dot.node(main_root.name)
-	tree_vis(main_root, dot)
+	_tree_vis(main_root, dot)
+	dot.render(directory=output_dir, view=True)
 
 
-def tree_vis(root, dot):
+def _tree_vis(root: Node, dot: graphviz.Digraph) -> None:
+	"""
+	The method recursively processes children of main root to create a visualisation of a BK-tree.
+	"""
 	for dist in root.children:
 		dot.node(root.children[dist].name)
 		dot.edge(root.name, root.children[dist].name, str(dist))
-		tree_vis(root.children[dist], dot)
-	# print(dot.source)
-	return dot.render(directory='doctest-output2', view=True)
-
-
-
-
-# Create visualisation from words
-# with open("words", "rb") as fp:   # Unpickling
-# 	words = pickle.load(fp)
-#
-# main_root = build_tree(words[:10])
-# create_vis(main_root)
-
-
-
-
-# Create visualisation from pickle file, that contains main root
-# with open("main_root", "rb") as fp:
-# 	content = pickle.load(fp)
-# main_root = content
-# create_vis(main_root)
+		_tree_vis(root.children[dist], dot)

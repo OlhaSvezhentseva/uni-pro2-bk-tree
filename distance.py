@@ -1,9 +1,14 @@
+# Olha Svezhentseva
+# 16.08.2022
+
 from metrics import WordDistanceCalculator
 
 
 class EditDistanceCalculator(WordDistanceCalculator):
+    """A class to calculate edit distance (Levenshtein distance)"""
 
-    def compute_distance(self, source, target):
+    def compute_distance(self, source: str, target: str) -> int:
+        """The method computes edit distance using dynamic programming"""
         n = len(source)
         m = len(target)
         matrix = self.__create_matrix(n, m)
@@ -16,36 +21,16 @@ class EditDistanceCalculator(WordDistanceCalculator):
                     replace_cost = 0
                 else:
                     replace_cost = 1
-                matrix[i][k] = min(matrix[i][k-1] + 1,
-                                        matrix[i-1][k] + 1,   #
+                matrix[i][k] = min(matrix[i][k-1] + 1, # Insert
+                                        matrix[i-1][k] + 1,   # Delete
                                         matrix[i-1][k-1] + replace_cost)  # Replace
         return matrix[-1][-1]
 
     @staticmethod
-    def __create_matrix(n, m):
+    def __create_matrix(n: int, m: int) -> list:
+        """The method creates matrix and fills it with zeroes"""
         row = [0] * (m+1)
         matrix = []
         for i in range(0, n+1):
             matrix.append(row[:])
         return matrix
-
-
-
-
-
-
-
-
-# print(distancer.compute_distance("", "löffel"))
-# print(distancer.compute_distance("sitting", "kitten"))
-
-# distancer2 = DistanceCalculator()
-# print(distancer2.compute_distance("sit", "kit"))
-# dist3 = DistanceCalculator()
-# print(distancer is dist3)
-
-
-# wordlist = ["help", "hell", "hello", "loop", "troop"]
-
-# for word in wordlist[1:]:
-#     print((wordlist[0], word), calculate_distance(wordlist[0], word))

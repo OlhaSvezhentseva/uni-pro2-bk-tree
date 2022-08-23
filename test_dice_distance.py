@@ -2,22 +2,22 @@
 # 16.08.2022
 
 import unittest
-from distance import EditDistanceCalculator
+from dice_similarity import DiceDistanceCalculator
 
 
 class DistanceTestSuite(unittest.TestCase):
-    """A class to test EditDistanceCalculator"""
     def setUp(self):
-        self.calculator = EditDistanceCalculator()
+        self.calculator = DiceDistanceCalculator()
+
 
     def test_example(self):
-        actual = self.calculator.compute_distance("vogel", "löffel")
-        expected = 4
+        actual = self.calculator.compute_distance("night", "nacht")
+        expected = 0.75
         self.assertEqual(actual, expected)
 
     def test_symmetry(self):
-        one_direct = self.calculator.compute_distance("vogel", "löffel")
-        other_direct = self.calculator.compute_distance("löffel", "vogel")
+        one_direct = self.calculator.compute_distance("night", "nacht")
+        other_direct = self.calculator.compute_distance("nacht", "night")
         self.assertEqual(one_direct, other_direct)
 
     def test_triangle(self):
@@ -27,8 +27,8 @@ class DistanceTestSuite(unittest.TestCase):
         self.assertLessEqual(single, compound)
 
     def test_empty_string(self):
-        actual = self.calculator.compute_distance("", "löffel")
-        expected = 6
+        actual = self.calculator.compute_distance("", "nacht")
+        expected = 1.0
         self.assertEqual(actual, expected)
 
     def test_empty_strings(self):

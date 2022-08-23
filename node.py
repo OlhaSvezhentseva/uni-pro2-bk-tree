@@ -1,13 +1,14 @@
-from distance import EditDistanceCalculator
-from dice_similarity import DiceDistanceCalculator
-import pickle
+# Olha Svezhentseva
+# 16.08.2022
 
+from __future__ import annotations
 
-DIST = EditDistanceCalculator()
-SIM = DiceDistanceCalculator()
-
+import typing
+if typing.TYPE_CHECKING:
+    from metrics import WordDistanceCalculator
 
 class Node:
+	"""A class to represent a node of a tree """
 
 	def __init__(self, name):
 		self.name = name
@@ -16,28 +17,11 @@ class Node:
 	def __str__(self):
 		return self.name
 
-	def insert_word(self, word, root, distance_calculator):
+	def insert_word(self, word: str, root: Node, distance_calculator: WordDistanceCalculator) -> None:
+		"""The method creates an object of class Node for a specific word
+		and inserts it into a dictionary of children of a corresponding root"""
 		distance = distance_calculator.compute_distance(word, root.name)
 		if distance not in root.children:
 			root.children[distance] = Node(word)
 		else:
 			self.insert_word(word, root.children[distance], distance_calculator)
-
-	def get_tree_depth(self,root):
-		if len(root.children) == 0:
-			return 0
-		else:
-			return 1 + max(self.get_tree_depth(x) for x in root.children.values())
-
-	def get_number_nodes(self, root):
-		if len(root.children) == 0:
-			return 1
-		else:
-			return 1 + sum(self.get_number_nodes(x) for x in root.children.values())
-
-	def save_root(self, root):
-		with open("main_root", "wb") as fp:
-			pickle.dump(root, fp)
-
-# where to put method "open nodes" if the tree is already built?
-
