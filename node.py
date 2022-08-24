@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import typing
 if typing.TYPE_CHECKING:
-	from metrics import WordDistanceCalculator
+	from metrics.metrics import WordDistanceCalculator
 
 class Node:
 	"""A class to represent a node of a tree """

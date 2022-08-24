@@ -11,7 +11,7 @@ from graph_visualisation import create_vis
 
 import typing
 if typing.TYPE_CHECKING:
-    from metrics import WordDistanceCalculator
+    from metrics.metrics import WordDistanceCalculator
 
 from nltk import word_tokenize
 

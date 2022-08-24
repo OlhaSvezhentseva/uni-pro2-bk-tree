@@ -6,8 +6,8 @@ from __future__ import annotations
 import pickle
 
 from node import Node
-from distance import EditDistanceCalculator
-from dice_similarity import DiceDistanceCalculator
+from metrics.distance import EditDistanceCalculator
+from metrics.dice_similarity import DiceDistanceCalculator
 
 from graph_visualisation import create_vis
 
