@@ -65,7 +65,7 @@ class Tree:
         else:
             return 1 + sum(self.get_number_nodes(x) for x in root.children.values())
 
-    def find_matches(self, root: Node, word: str, d: int, matches: list = None) -> list:
+    def find_matches(self, root: Node, word: str, d: float, matches: list = None) -> list:
         """The method finds all words in a tree, distance to which is less/equal than d"""
         if matches is None:
             matches = []
@@ -76,21 +76,3 @@ class Tree:
             if dist - d <= self.distance_calculator.compute_distance(word, child.name) <= dist + d:
                 self.find_matches(child, word, d, matches)
         return matches
-
-
-with open("words", "rb") as fp:   # Unpickling
-    words = pickle.load(fp)
-
-
-distance_calc = METRIC_CLASSES["edit"]()
-tree = Tree(distance_calculator=distance_calc, words=words[:10])
-print(tree.main_root)
-
-
-tree.serialize("main_root", "distance_calcualtor")
-reconstructed_tree = Tree.deserialize("main_root", "distance_calcualtor")
-
-print(f'Number of nodes: {reconstructed_tree.get_number_nodes(reconstructed_tree.main_root)}')
-print(f'Tree depth:{reconstructed_tree.get_tree_depth(reconstructed_tree.main_root)}')
-print(reconstructed_tree.find_matches(reconstructed_tree.main_root, "hinein", 4))
-print(create_vis(reconstructed_tree.main_root))
