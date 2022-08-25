@@ -1,92 +1,101 @@
-# Pro2-bk-tree
 
-Das Projekt befasst sich mit der Erstellung von Burkhard-Keller-Bäumen zur approximativen Suche. 
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitup.uni-potsdam.de/svezhentseva/pro2-bk-tree.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitup.uni-potsdam.de/svezhentseva/pro2-bk-tree/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
+# BK-tree
 
 ## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+The project deals with string matching using BK-tree. 
+BK-tree can be either build on the basis of Levenshtein distance (Edit distance) or Jaccard distance.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Edit distance counts the minimum number of operations required to transform one string into the other. In these case each of the operations 
+(deletion, insertion, replacement) cost 1 unit.
+After the tree is built,
+user can type a word and the maximum distance a string can be from this word 
+and still be returned. 
+ Then the program will change into an interactive mode.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+ Jaccard distance measures dissimilarity between sample sets.
+ In case of string matching Jaccard distance is based on letter bigrams that strings have in common.
+The distance is obtained by subtracting Jaccard coefficient
+ (intersection of two strings divided through sum of their cardinalities) from 1.  
+ I decided to use Jaccard distance  and not Jaccard coefficient 
+ to make trees based on different metrics and search in them more coherent.
+ Then the described tree follows the same logic as a tree built based on Edit distance. 
+ Jaccard distance can range from 0 to 1 because 
+ it's a normalized value and is in this sense logically different from Edit distance.
+Strings are viewed as sets, so letter bigrams of the word "banane" would be {"ba", "an", "na", "ne"}, 
+where bigram "an" occurs only once. 
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## Structure
+File `derewo_words` is responsible for filtering words and saving them in a txt file.
+ 
+ Folder `bk_program` contains files that constitute main logic of the program: 
+ construction and visualisation of a tree, interactive mode for conducting  searches in the tree.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+ Folder `metrics` contains files responsible for calculating distance between words.
+ 
+  Subfolder of  `metrics` folder `tests` contains test files that check calculation of distance.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+# Requirements
+`python3.7`
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+`graphviz` (see https://graphviz.readthedocs.io/en/stable/manual.html)
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+  
+# Demo
+To run demo version of the program use  `small_derewo.txt`.
+ It contains 10 already cleaned words. 
+Example: `python -m bk_program.program --file small_derewo.txt`
 
-## License
-For open source projects, say how it is licensed.
+The first parameter is the file with the words, the other parameter defines type of metrics 
+that must be used to build the tree and make searches in it. It's a default parameter and is set to
+ `edit` (to use Edit distance for calcualtions)
+ 
+ You can make it explicit: `python -m bk_program.program --file small_derewo.txt --metric edit`
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+To use Jaccard distance:  `python -m bk_program.program --file small_derewo.txt --metric jaccard`
+ 
+ You will see the visualisation of a tree and 
+ status information such as depth of the tree and number of nodes in it.
+  Then the program will change into an interactive mode. 
+The program will always wait for input from user
+ after the result for the previous query  (if there was one) was already returned. 
+ Empty input stops the program.
+ 
+ 
+ Example: `sein 2`
+ 
+There must be a word followed by a number, indicating the biggest distance allowed.
+
+# Usage
+1. Download DeReWo list of words from 
+https://www.ids-mannheim.de/digspra/kl/projekte/methoden/derewo/
+The list's name is derewo-v-ww-bll-250000g-2011-12-31-0.1  and it contains 250.000 words.
+
+2. In console call derewo_words.py.
+The program will extract filtered words from the downloaded text file 
+that must pe provided as a parameter and save them in a new txt file named  `filtered_words`.
+ 
+    Example: `python derewo_words.py --file derewo-v-ww-bll-250000g-2011-12-31-0.1.txt`
+
+3. If no visualisation is desired, open  bk_program.program.py and comment code in the "Visualisation" part.
+4. Running programm is the same as in demo:
+
+    `python -m bk_program.program --file filtered_words`
+
+    `python -m bk_program.program --file filtered_words --metric jaccard `
+
+5. Interactive mode is the same
+
+
+
+## Tests
+Test lie in `metrics/tests`
+
+Call:  `python -m unittest discover metrics.tests`
+
+## Contact
+Olha Svezhentseva <olha.svezhentseva@uni-potsdam.de>
+
+

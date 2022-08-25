@@ -68,6 +68,8 @@ if __name__ == "__main__":
     words, distance_calc = initialize_program(args.file, args.metric)
 
     reconstructed_tree = create_tree(distance_calc, words)
+
+    # Visualisation
     create_vis(reconstructed_tree.main_root)
     show_tree_info(reconstructed_tree)
     run_interactive_mode(reconstructed_tree)

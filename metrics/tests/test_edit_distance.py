@@ -2,7 +2,7 @@
 # 16.08.2022
 
 import unittest
-from metrics.distance import EditDistanceCalculator
+from metrics.edit_distance import EditDistanceCalculator
 
 
 class DistanceTestSuite(unittest.TestCase):
