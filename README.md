@@ -28,6 +28,8 @@ where bigram "an" occurs only once.
 
 ## Structure
 File `derewo_words` is responsible for filtering words and saving them in a txt file.
+
+ File `small_derewo.txt` contains words used for demo.
  
  Folder `bk_program` contains files that constitute main logic of the program: 
  construction and visualisation of a tree, interactive mode for conducting  searches in the tree.
