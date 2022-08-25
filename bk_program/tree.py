@@ -28,7 +28,10 @@ class Tree:
     def _build_tree(self, words: list) -> Node:
         """The method builds a BK-tree out of a list of words"""
         main_root = Node(words[0])
-        for word in words[1:]:
+        print(f"Total number of words: {len(words)}")
+        for index, word in enumerate(words[1:], 1):
+            if index % 10000 == 0:
+                print(f"..processed {index} words")
             main_root.insert_word(word, main_root, self.distance_calculator)
         return main_root
 
