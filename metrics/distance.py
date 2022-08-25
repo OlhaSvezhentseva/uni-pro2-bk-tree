@@ -1,7 +1,7 @@
 # Olha Svezhentseva
 # 16.08.2022
 
-from metrics import WordDistanceCalculator
+from metrics.metrics import WordDistanceCalculator
 
 
 class EditDistanceCalculator(WordDistanceCalculator):

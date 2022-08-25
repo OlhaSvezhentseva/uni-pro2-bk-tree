@@ -5,11 +5,11 @@ from __future__ import annotations
 
 import pickle
 
-from node import Node
+from bk_program.node import Node
 from metrics.distance import EditDistanceCalculator
 from metrics.dice_similarity import DiceDistanceCalculator
 
-from graph_visualisation import create_vis
+from bk_program.graph_visualisation import create_vis
 
 
 METRIC_CLASSES = {
@@ -72,7 +72,9 @@ class Tree:
         dist = self.distance_calculator.compute_distance(word, root.name)
         if dist <= d:
             matches.append(root.name)
-        for child in root.children.values():
-            if dist - d <= self.distance_calculator.compute_distance(word, child.name) <= dist + d:
+        for child_distance, child in root.children.items():
+            if abs(child_distance - dist) <= d:
                 self.find_matches(child, word, d, matches)
+
         return matches
+

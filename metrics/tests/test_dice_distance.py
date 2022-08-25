@@ -2,7 +2,7 @@
 # 16.08.2022
 
 import unittest
-from dice_similarity import DiceDistanceCalculator
+from metrics.dice_similarity import DiceDistanceCalculator
 
 
 class DistanceTestSuite(unittest.TestCase):

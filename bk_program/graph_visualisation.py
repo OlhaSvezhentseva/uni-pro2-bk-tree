@@ -2,7 +2,7 @@
 # 16.08.2022
 
 import graphviz
-from node import Node
+from bk_program.node import Node
 
 
 def create_vis(main_root: Node, output_dir: str = 'doctest-output') -> None:

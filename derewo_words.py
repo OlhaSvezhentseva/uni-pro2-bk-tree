@@ -1,47 +1,31 @@
 # Olha Svezhentseva
 # 16.08.2022
 
-import pickle
-from nltk import word_tokenize
+import re
+import argparse
 
 
-# def extract_words(file_name):
-#     words = set()
-#     try:
-#         with open(file_name, encoding='ISO-8859-15') as file_in:
-#             for line in file_in.readlines():
-#                 if word_tokenize(line)[0] != "#":
-#                     word = word_tokenize(line)[0]
-#                     words.add(word)
-#     except FileNotFoundError:
-#         raise("File not Found")
-#     return words
-
-
-
-
-
-
-def save_words(words, output_file):
-    with open(output_file, "wb") as fp:
-        pickle.dump(words, fp)
-
-
-def open_words(output_file):
-    with open(output_file, "rb") as fp:
-        words = pickle.load(fp)
-    return words
-
-def extract_words(input_file, output_file="words"):
+def extract_words(input_file: str, output_file: str = "filtered_words") -> None:
+    """The method extracts clean words from a file and saves them in a txt file"""
     words = set()
     try:
-        with open(input_file, encoding='ISO-8859-15') as file_in:
+        with open(input_file, encoding='ISO-8859-15') as file_in, open(
+                output_file, "w"
+        ) as file_out:
             for line in file_in.readlines():
-                if word_tokenize(line)[0] != "#":
-                    word = word_tokenize(line)[0]
-                    words.add(word)
+                if line[0] != "#":
+                    word = line.split(" ", 1)[0].split(',')[0]
+                    word = "".join(re.split(r'\(|\)', word))
+                    if word not in words:
+                        words.add(word)
+                        file_out.write(word + '\n')
     except FileNotFoundError:
         raise("File not Found")
-    save_words(words, output_file)
-    words = open_words(output_file)
-    return list(words)
+
+
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--file", type=str)
+    args = parser.parse_args()
+    extract_words(args.file)
