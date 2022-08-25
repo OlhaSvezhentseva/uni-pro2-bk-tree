@@ -6,14 +6,12 @@ from __future__ import annotations
 import pickle
 
 from bk_program.node import Node
-from metrics.distance import EditDistanceCalculator
-from metrics.dice_similarity import DiceDistanceCalculator
-
-from bk_program.graph_visualisation import create_vis
+from metrics.edit_distance import EditDistanceCalculator
+from metrics.jaccard_distance import JaccardDistanceCalculator
 
 
 METRIC_CLASSES = {
-    "dice": DiceDistanceCalculator,
+    "jaccard": JaccardDistanceCalculator,
     "edit": EditDistanceCalculator,
 }
 
@@ -77,4 +75,3 @@ class Tree:
                 self.find_matches(child, word, d, matches)
 
         return matches
-

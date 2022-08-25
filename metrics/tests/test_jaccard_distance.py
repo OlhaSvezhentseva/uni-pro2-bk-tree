@@ -2,17 +2,16 @@
 # 16.08.2022
 
 import unittest
-from metrics.dice_similarity import DiceDistanceCalculator
+from metrics.jaccard_distance import JaccardDistanceCalculator
 
 
 class DistanceTestSuite(unittest.TestCase):
     def setUp(self):
-        self.calculator = DiceDistanceCalculator()
-
+        self.calculator = JaccardDistanceCalculator()
 
     def test_example(self):
         actual = self.calculator.compute_distance("night", "nacht")
-        expected = 0.75
+        expected = 0.86
         self.assertEqual(actual, expected)
 
     def test_symmetry(self):

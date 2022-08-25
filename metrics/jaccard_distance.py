@@ -4,9 +4,9 @@
 from metrics.metrics import WordDistanceCalculator
 
 
-class DiceDistanceCalculator(WordDistanceCalculator):
-    """A class to calculate Sorensen–Dice Distance.
-    Distance value is obtained through subtracting Dice coefficient from one"""
+class JaccardDistanceCalculator(WordDistanceCalculator):
+    """A class to calculate Jaccard Distance.
+    Jaccard Distance value is obtained through subtracting Jaccard coefficient from one"""
 
     def compute_distance(self, source: str, target: str) -> int:
         """The method computes distance between two words"""
@@ -14,7 +14,7 @@ class DiceDistanceCalculator(WordDistanceCalculator):
         target_bigr = self.__get_bigrams(target)
         intersect = self.__compute_intersection(source__bigr,target_bigr)
         try:
-            result = (2 * intersect)/(len(source__bigr) + len(target_bigr))
+            result = intersect/((len(source__bigr) + len(target_bigr)) - intersect)
         except ZeroDivisionError:
             result = 1
         return round(1 - result, 2)
