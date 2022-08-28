@@ -101,4 +101,3 @@ Call:  `python -m unittest discover metrics.tests`
 ## Contact
 Olha Svezhentseva <olha.svezhentseva@uni-potsdam.de>
 
-
