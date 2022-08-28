@@ -17,3 +17,4 @@ class WordDistanceCalculator(ABC, SingletonClass):
     @abstractmethod
     def compute_distance(self, source, target):
         pass
+

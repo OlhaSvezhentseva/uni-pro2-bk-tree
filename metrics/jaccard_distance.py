@@ -31,3 +31,4 @@ class JaccardDistanceCalculator(WordDistanceCalculator):
     def __compute_intersection(source_bigrams: set, target_bigrams: set) -> int:
         """The method computes intersection between two sets"""
         return len(source_bigrams & target_bigrams)
+

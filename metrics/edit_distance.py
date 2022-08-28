@@ -34,3 +34,4 @@ class EditDistanceCalculator(WordDistanceCalculator):
         for i in range(0, n+1):
             matrix.append(row[:])
         return matrix
+

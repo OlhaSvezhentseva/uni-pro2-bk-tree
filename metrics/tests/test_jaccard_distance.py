@@ -39,3 +39,4 @@ class DistanceTestSuite(unittest.TestCase):
         actual = self.calculator.compute_distance("haus", "haus")
         expected = 0
         self.assertEqual(actual, expected)
+

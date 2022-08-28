@@ -25,3 +25,4 @@ def _tree_vis(root: Node, dot: graphviz.Digraph) -> None:
 		dot.node(root.children[dist].name)
 		dot.edge(root.name, root.children[dist].name, str(dist))
 		_tree_vis(root.children[dist], dot)
+
