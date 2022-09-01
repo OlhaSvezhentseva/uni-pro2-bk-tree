@@ -49,7 +49,7 @@ File `derewo_words` is responsible for filtering words and saving them in a txt 
 To run demo version of the program use  `small_derewo.txt`.
  It contains 10 already cleaned words. 
     
-    Call: `python -m bk_program.program --file small_derewo.txt`
+    `python -m bk_program.program --file small_derewo.txt`
 
 The first parameter is the file with the words, the other parameter defines type of metrics 
 that must be used to build the tree and make searches in it. It's a default parameter and is set to
@@ -67,7 +67,7 @@ The program will always wait for input from user
  Empty input stops the program.
  
  
-    Call: `sein 2`
+    `sein 2`
  
 There must be a word followed by a number, indicating the biggest distance allowed.
 
@@ -80,7 +80,7 @@ The list's name is derewo-v-ww-bll-250000g-2011-12-31-0.1  and it contains 250.0
 The program will extract filtered words from the downloaded text file 
 that must pe provided as a parameter and save them in a new txt file named  `filtered_words`.
  
-        Call: `python derewo_words.py --file derewo-v-ww-bll-250000g-2011-12-31-0.1.txt`
+        `python derewo_words.py --file derewo-v-ww-bll-250000g-2011-12-31-0.1.txt`
 
 3. If no visualisation is desired, open  bk_program.program.py and comment code in the "Visualisation" part.
 4. Running programm is the same as in demo:
@@ -96,7 +96,7 @@ that must pe provided as a parameter and save them in a new txt file named  `fil
 ## Tests
 Test lie in `metrics/tests`
 
-Call:  `python -m unittest discover metrics.tests`
+`python -m unittest discover metrics.tests`
 
 ## Contact
 Olha Svezhentseva <olha.svezhentseva@uni-potsdam.de>

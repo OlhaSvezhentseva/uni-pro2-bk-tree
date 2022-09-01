@@ -5,7 +5,7 @@ from metrics.metrics import WordDistanceCalculator
 
 
 class EditDistanceCalculator(WordDistanceCalculator):
-    """A class to calculate edit distance (Levenshtein distance)"""
+    """A class to calculate edit distance (Levenshtein distance)."""
 
     def compute_distance(self, source: str, target: str) -> int:
         """The method computes edit distance using dynamic programming"""
@@ -28,7 +28,7 @@ class EditDistanceCalculator(WordDistanceCalculator):
 
     @staticmethod
     def __create_matrix(n: int, m: int) -> list:
-        """The method creates matrix and fills it with zeroes"""
+        """The method creates matrix and fills it with zeroes."""
         row = [0] * (m+1)
         matrix = []
         for i in range(0, n+1):

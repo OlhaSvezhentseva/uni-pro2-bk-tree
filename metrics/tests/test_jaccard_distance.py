@@ -6,10 +6,11 @@ from metrics.jaccard_distance import JaccardDistanceCalculator
 
 
 class DistanceTestSuite(unittest.TestCase):
+    """A class to test JaccardDistanceCalculator."""
     def setUp(self):
         self.calculator = JaccardDistanceCalculator()
 
-    def test_example(self):
+    def test_general(self):
         actual = self.calculator.compute_distance("night", "nacht")
         expected = 0.86
         self.assertEqual(actual, expected)

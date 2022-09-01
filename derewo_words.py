@@ -6,7 +6,7 @@ import argparse
 
 
 def extract_words(input_file: str, output_file: str = "filtered_words") -> None:
-    """The method extracts clean words from a file and saves them in a txt file"""
+    """The method extracts clean words from a file and saves them in a txt file."""
     words = set()
     try:
         with open(input_file, encoding='ISO-8859-15') as file_in, open(

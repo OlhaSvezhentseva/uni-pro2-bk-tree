@@ -6,11 +6,11 @@ from metrics.edit_distance import EditDistanceCalculator
 
 
 class DistanceTestSuite(unittest.TestCase):
-    """A class to test EditDistanceCalculator"""
+    """A class to test EditDistanceCalculator."""
     def setUp(self):
         self.calculator = EditDistanceCalculator()
 
-    def test_example(self):
+    def test_general(self):
         actual = self.calculator.compute_distance("vogel", "löffel")
         expected = 4
         self.assertEqual(actual, expected)
