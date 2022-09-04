@@ -1,7 +1,9 @@
 # Olha Svezhentseva
 # 16.08.2022
 
-from metrics.metrics import WordDistanceCalculator
+from typing import List
+
+from .distance import WordDistanceCalculator
 
 
 class EditDistanceCalculator(WordDistanceCalculator):
@@ -27,11 +29,10 @@ class EditDistanceCalculator(WordDistanceCalculator):
         return matrix[-1][-1]
 
     @staticmethod
-    def __create_matrix(n: int, m: int) -> list:
+    def __create_matrix(n: int, m: int) -> List[List[int]]:
         """The method creates matrix and fills it with zeroes."""
         row = [0] * (m+1)
         matrix = []
         for i in range(0, n+1):
             matrix.append(row[:])
         return matrix
-

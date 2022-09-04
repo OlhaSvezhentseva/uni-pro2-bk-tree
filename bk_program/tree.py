@@ -1,31 +1,34 @@
 # Olha Svezhentseva
 # 16.08.2022
 
-from __future__ import annotations
-
 import pickle
+from typing import List, Optional
 
-from bk_program.node import Node
-from metrics.edit_distance import EditDistanceCalculator
-from metrics.jaccard_distance import JaccardDistanceCalculator
+from .node import Node
+from . import metrics
 
 
 METRIC_CLASSES = {
-    "jaccard": JaccardDistanceCalculator,
-    "edit": EditDistanceCalculator,
+    "jaccard": metrics.JaccardDistanceCalculator,
+    "edit": metrics.EditDistanceCalculator,
 }
 
 
 class Tree:
     """A class to represent BK-tree."""
 
-    def __init__(self, distance_calculator, main_root=None, words=None):
+    def __init__(
+        self,
+        distance_calculator: metrics.WordDistanceCalculator,
+        main_root: Optional[Node] = None,
+        words: Optional[List[str]] = None
+    ):
         assert main_root is not None or words is not None, \
             "Either list of words or root must be provided"
         self.distance_calculator = distance_calculator
         self.main_root = self._build_tree(words) if main_root is None else main_root
 
-    def _build_tree(self, words: list) -> Node:
+    def _build_tree(self, words: List[str]) -> Node:
         """The method builds a BK-tree out of a list of words."""
         main_root = Node(words[0])
         print(f"Total number of words: {len(words)}")
@@ -43,7 +46,7 @@ class Tree:
             pickle.dump(self.distance_calculator, f)
 
     @classmethod
-    def deserialize(cls, root_file: str, calculator_file: str) -> Tree:
+    def deserialize(cls, root_file: str, calculator_file: str) -> "Tree":
         """
         The method deserializes main root of a tree and calculator (used to compute the metrics)
         to reconstruct the already built tree
@@ -68,7 +71,13 @@ class Tree:
         else:
             return 1 + sum(self.get_number_nodes(x) for x in root.children.values())
 
-    def find_matches(self, word: str, d: float, root: Node = None, matches: list = None) -> list:
+    def find_matches(
+        self,
+        word: str,
+        d: float,
+        root: Optional[Node] = None,
+        matches: Optional[List[str]] = None
+    ) -> List[str]:
         """The method finds all words in a tree, distance to which is less/equal than d."""
         if root is None:
             root = self.main_root
@@ -81,4 +90,3 @@ class Tree:
             if abs(child_distance - dist) <= d:
                 self.find_matches(word, d, child, matches)
         return matches
-

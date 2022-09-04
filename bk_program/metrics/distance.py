@@ -2,19 +2,21 @@
 # 16.08.2022
 
 from abc import ABC, abstractmethod
+from typing import Union
 
-class SingletonClass:
+
+class Singleton:
     """A class that allows to create only one instance."""
 
     def __new__(cls):
         if not hasattr(cls, 'instance'):
-            cls.instance = super(SingletonClass, cls).__new__(cls)
+            cls.instance = super(Singleton, cls).__new__(cls)
         return cls.instance
 
 
-class WordDistanceCalculator(ABC, SingletonClass):
+class WordDistanceCalculator(ABC, Singleton):
     """A class to calculate distance. Only one instance can be created."""
     @abstractmethod
-    def compute_distance(self, source, target):
+    def compute_distance(self, source: str, target: str) -> Union[float, int]:
         pass
 

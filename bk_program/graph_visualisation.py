@@ -2,8 +2,9 @@
 # 16.08.2022
 
 import graphviz
-from bk_program.tree import Tree
-from bk_program.node import Node
+
+from .tree import Tree
+from .node import Node
 
 
 class Visualisation:

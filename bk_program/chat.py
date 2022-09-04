@@ -1,21 +1,24 @@
 # Olha Svezhentseva
 # 01.09.2022
-
+from typing import Tuple, Union
 from nltk import word_tokenize
+
+from .bksearch import BKSearcher
 
 
 class Chat:
     "A class responsible for communication with the user."
 
-    WARNINGS = {"invalid length": "Input must be in the following format: word number. Try again.",
-                "invalid word": "Your input must begin with a string. Try again.",
-                "invalid distance": "After a word there must be a number. Try again."
-                }
+    WARNINGS = {
+        "invalid length": "Input must be in the following format: word number. Try again.",
+        "invalid word": "Your input must begin with a string. Try again.",
+        "invalid distance": "After a word there must be a number. Try again."
+    }
 
-    def __init__(self, bot):
-        self.bot = bot
+    def __init__(self, searcher: BKSearcher):
+        self.searcher = searcher
 
-    def show_warning_message(self, status):
+    def _show_warning_message(self, status: str) -> str:
         """The method prints a warning to the user."""
         return self.WARNINGS[status]
 
@@ -34,13 +37,13 @@ class Chat:
             if user_input == "":
                 print("Bye!")
                 break
-            status, *result = self.check_input(user_input)
+            status, *result = self._check_input(user_input)
             if status:
-                print(f"Results: {self.bot.execute_command(result[0], result[1])}")
+                print(f"Results: {self.searcher.execute_command(result[0], result[1])}")
             else:
-                print(self.show_warning_message(result[0]))
+                print(self._show_warning_message(result[0]))
 
-    def check_input(self, user_input: str) -> str or tuple:
+    def _check_input(self, user_input: str) -> Union[str, Tuple]:
         """The method processes user's input. """
         user_input = word_tokenize(user_input)
         if not self._valid_length(user_input):

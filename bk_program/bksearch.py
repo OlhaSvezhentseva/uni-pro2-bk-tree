@@ -1,7 +1,8 @@
 # Olha Svezhentseva
 # 01.09.2022
 
-from bk_program.tree import Tree, METRIC_CLASSES
+from typing import List
+from .tree import Tree, METRIC_CLASSES
 
 
 class BKSearcher:
@@ -13,7 +14,7 @@ class BKSearcher:
         self. vis_required = self._visualisation_required()
         self.tree = self.create_tree()
 
-    def execute_command(self, word: str, d: float) -> list:
+    def execute_command(self, word: str, d: float) -> List[str]:
         """The method returns all matches found in a tree based on user's query."""
         result = self.tree.find_matches(word, float(d))
         return result
@@ -26,10 +27,10 @@ class BKSearcher:
         return reconstructed_tree
 
     # Spend too much time checking length of words?
-    def _visualisation_required(self):
+    def _visualisation_required(self) -> bool:
         return len(self.words) <= 50
 
     @staticmethod
-    def _read_words(path):
+    def _read_words(path: str) -> List[str]:
         with open(path) as file_in:
             return file_in.read().split("\n")

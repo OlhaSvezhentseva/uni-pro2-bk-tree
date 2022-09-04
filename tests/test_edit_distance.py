@@ -2,22 +2,22 @@
 # 16.08.2022
 
 import unittest
-from metrics.jaccard_distance import JaccardDistanceCalculator
+from bk_program.metrics import EditDistanceCalculator
 
 
 class DistanceTestSuite(unittest.TestCase):
-    """A class to test JaccardDistanceCalculator."""
+    """A class to test EditDistanceCalculator."""
     def setUp(self):
-        self.calculator = JaccardDistanceCalculator()
+        self.calculator = EditDistanceCalculator()
 
     def test_general(self):
-        actual = self.calculator.compute_distance("night", "nacht")
-        expected = 0.86
+        actual = self.calculator.compute_distance("vogel", "löffel")
+        expected = 4
         self.assertEqual(actual, expected)
 
     def test_symmetry(self):
-        one_direct = self.calculator.compute_distance("night", "nacht")
-        other_direct = self.calculator.compute_distance("nacht", "night")
+        one_direct = self.calculator.compute_distance("vogel", "löffel")
+        other_direct = self.calculator.compute_distance("löffel", "vogel")
         self.assertEqual(one_direct, other_direct)
 
     def test_triangle(self):
@@ -27,8 +27,8 @@ class DistanceTestSuite(unittest.TestCase):
         self.assertLessEqual(single, compound)
 
     def test_empty_string(self):
-        actual = self.calculator.compute_distance("", "nacht")
-        expected = 1.0
+        actual = self.calculator.compute_distance("", "löffel")
+        expected = 6
         self.assertEqual(actual, expected)
 
     def test_empty_strings(self):
