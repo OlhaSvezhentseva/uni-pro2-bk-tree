@@ -17,8 +17,7 @@ and still be returned.
  Jaccard distance measures dissimilarity between sample sets.
  In case of string matching Jaccard distance is based on letter bigrams that strings have in common.
 The distance is obtained by subtracting Jaccard coefficient
- (intersection of two strings divided through sum of their cardinalities) from 1.  
- I decided to use Jaccard distance and not Jaccard coefficient 
+ (intersection of two strings divided through sum of their cardinalities) from 1. I decided to use Jaccard distance and not Jaccard coefficient 
  to make trees based on different metrics and search in them more coherent.
  Then the described tree follows the same logic as a tree built based on Edit distance. 
  The only difference ist that Jaccard distance can range from 0 to 1 because 
@@ -68,8 +67,7 @@ that must be used to build the tree and make searches in it. It's a default para
 
 To use Jaccard distance:  `python -m main --file small_derewo.txt --metric jaccard`
  
- You will see the visualisation of a tree  
-(as the tree was built on fewer then 50 words)
+ You will see the visualisation of a tree (as the tree was built on fewer then 50 words), 
  status information such as depth of the tree and number of nodes in it.
   Then the program will change into an interactive mode. 
 The program will always wait for input from user
