@@ -85,7 +85,7 @@ There must be a word followed by a number, indicating the biggest distance allow
 https://www.ids-mannheim.de/digspra/kl/projekte/methoden/derewo/
 The list's name is derewo-v-ww-bll-250000g-2011-12-31-0.1  and it contains 250.000 words.
 
-2. In console call derewo_words.py.
+2. In console call derewo_words.py from the root folder.
 The program will extract filtered words from the downloaded text file 
 that must pe provided as a parameter and save them in a new txt file named  `filtered_words`.
  
