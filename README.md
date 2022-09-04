@@ -3,11 +3,12 @@
 
 ## Description
 
-The project deals with string matching using BK-tree. 
-BK-tree can be either build on the basis of Levenshtein distance (Edit distance) or Jaccard distance.
+The project deals with approximate string matching using BK-tree data structure. 
+BK-tree can be either built on the basis of Levenshtein distance (Edit distance) or Jaccard distance.
 
-Edit distance counts the minimum number of operations required to transform one string into the other. In these case each of the operations 
-(deletion, insertion, replacement) cost 1 unit.
+Edit distance counts the minimum number of operations required to transform one string into the other. 
+In these case each of the operations 
+(deletion, insertion, replacement) costs 1 unit.
 After the tree is built,
 user can type a word and the maximum distance a string can be from this word 
 and still be returned. 
@@ -17,11 +18,11 @@ and still be returned.
  In case of string matching Jaccard distance is based on letter bigrams that strings have in common.
 The distance is obtained by subtracting Jaccard coefficient
  (intersection of two strings divided through sum of their cardinalities) from 1.  
- I decided to use Jaccard distance  and not Jaccard coefficient 
+ I decided to use Jaccard distance and not Jaccard coefficient 
  to make trees based on different metrics and search in them more coherent.
  Then the described tree follows the same logic as a tree built based on Edit distance. 
- Jaccard distance can range from 0 to 1 because 
- it's a normalized value and is in this sense logically different from Edit distance.
+ The only difference ist that Jaccard distance can range from 0 to 1 because 
+ it's a normalized value.
 Strings are viewed as sets, so letter bigrams of the word "banane" would be {"ba", "an", "na", "ne"}, 
 where bigram "an" occurs only once. 
 
@@ -31,12 +32,14 @@ File `derewo_words` is responsible for filtering words and saving them in a txt 
 
  File `small_derewo.txt` contains words used for demo.
  
- Folder `bk_program` contains files that constitute main logic of the program: 
- construction and visualisation of a tree, interactive mode for conducting  searches in the tree.
-
- Folder `metrics` contains files responsible for calculating distance between words.
+ File `main.py` calls the program.
  
-  Subfolder of  `metrics` folder `tests` contains test files that check calculation of distance.
+ Folder `bk_program` contains files that constitute main logic of the program: 
+ construction and visualisation of a tree, conducting  searches in the tree.
+
+Its subfolder `metrics` contains files responsible for calculating distance between words.
+
+Folder `tests` contains test files that check calculation of distance.
 
 
 # Requirements
@@ -44,20 +47,26 @@ File `derewo_words` is responsible for filtering words and saving them in a txt 
 
 `graphviz` (see https://graphviz.readthedocs.io/en/stable/manual.html)
 
+The only dependency is a working installation of Graphviz (also see 
+https://graphviz.readthedocs.io/en/stable/manual.html )
+
+`nltk` (see https://www.nltk.org/)
+
   
 # Demo
 To run demo version of the program use  `small_derewo.txt`.
  It contains 10 already cleaned words. 
+Call it from the root folder (so that bk_folder is a subfolder then)
     
-    `python -m bk_program.program --file small_derewo.txt`
+    `python -m main --file small_derewo.txt`
 
 The first parameter is the file with the words, the other parameter defines type of metrics 
 that must be used to build the tree and make searches in it. It's a default parameter and is set to
- `edit` (to use Edit distance for calcualtions)
+ `edit` (to use Edit distance for calculations)
  
- You can make it explicit: `python -m bk_program.program --file small_derewo.txt --metric edit`
+ You can make it explicit: `python -m main --file small_derewo.txt --metric edit`
 
-To use Jaccard distance:  `python -m bk_program.program --file small_derewo.txt --metric jaccard`
+To use Jaccard distance:  `python -m main --file small_derewo.txt --metric jaccard`
  
  You will see the visualisation of a tree and 
  status information such as depth of the tree and number of nodes in it.
@@ -65,6 +74,7 @@ To use Jaccard distance:  `python -m bk_program.program --file small_derewo.txt 
 The program will always wait for input from user
  after the result for the previous query  (if there was one) was already returned. 
  Empty input stops the program.
+ Example of input:
  
  
     `sein 2`
@@ -82,21 +92,19 @@ that must pe provided as a parameter and save them in a new txt file named  `fil
  
         `python derewo_words.py --file derewo-v-ww-bll-250000g-2011-12-31-0.1.txt`
 
-3. If no visualisation is desired, open  bk_program.program.py and comment code in the "Visualisation" part.
-4. Running programm is the same as in demo:
+3. You will see a visualisation of the tree if it was built on fewer then 50 words. Otherwise, 
+only text file with the source text for visualisation will be saved.
+4. Running program is the same as in demo:
 
-    `python -m bk_program.program --file filtered_words`
+    `python -m main --file filtered_words`
 
-    `python -m bk_program.program --file filtered_words --metric jaccard `
-
-5. Interactive mode is the same
-
+    `python -m main --file filtered_words  --metric jaccard`
 
 
 ## Tests
-Test lie in `metrics/tests`
+Test lie in the root folder.
 
-`python -m unittest discover metrics.tests`
+`python -m unittest discover tests`
 
 ## Contact
 Olha Svezhentseva <olha.svezhentseva@uni-potsdam.de>
