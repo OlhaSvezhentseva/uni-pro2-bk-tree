@@ -56,7 +56,7 @@ https://graphviz.readthedocs.io/en/stable/manual.html )
 # Demo
 To run demo version of the program use  `small_derewo.txt`.
  It contains 10 already cleaned words. 
-Call it from the root folder (so that bk_folder is a subfolder then)
+Call it from the root folder (so that bk_program is a subfolder then)
     
     `python -m main --file small_derewo.txt`
 
@@ -68,7 +68,8 @@ that must be used to build the tree and make searches in it. It's a default para
 
 To use Jaccard distance:  `python -m main --file small_derewo.txt --metric jaccard`
  
- You will see the visualisation of a tree and 
+ You will see the visualisation of a tree  
+(as the tree was built on fewer then 50 words)
  status information such as depth of the tree and number of nodes in it.
   Then the program will change into an interactive mode. 
 The program will always wait for input from user
@@ -92,8 +93,8 @@ that must pe provided as a parameter and save them in a new txt file named  `fil
  
         `python derewo_words.py --file derewo-v-ww-bll-250000g-2011-12-31-0.1.txt`
 
-3. You will see a visualisation of the tree if it was built on fewer then 50 words. Otherwise, 
-only text file with the source text for visualisation will be saved.
+3. Text file with the source text for visualisation will be saved, 
+visualisation itself will not be generated, as the number of words exceeds 50.
 4. Running program is the same as in demo:
 
     `python -m main --file filtered_words`
