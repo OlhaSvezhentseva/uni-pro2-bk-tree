@@ -15,8 +15,8 @@ class Singleton:
 
 
 class WordDistanceCalculator(ABC, Singleton):
-    """A class to calculate distance. Only one instance can be created."""
+    """A class to calculate distance."""
+
     @abstractmethod
     def compute_distance(self, source: str, target: str) -> Union[float, int]:
         pass
-

@@ -3,6 +3,7 @@
 
 from .metrics import WordDistanceCalculator
 
+
 class Node:
 	"""A class to represent a node of a tree."""
 
@@ -23,4 +24,3 @@ class Node:
 			root.children[distance] = Node(word)
 		else:
 			self.insert_word(word, root.children[distance], distance_calculator)
-

@@ -5,8 +5,9 @@ import unittest
 from bk_program.metrics import JaccardDistanceCalculator
 
 
-class DistanceTestSuite(unittest.TestCase):
+class JaccardDistanceTestSuite(unittest.TestCase):
     """A class to test JaccardDistanceCalculator."""
+
     def setUp(self):
         self.calculator = JaccardDistanceCalculator()
 
@@ -23,7 +24,8 @@ class DistanceTestSuite(unittest.TestCase):
     def test_triangle(self):
         # (x, y) <= d(x, z) + d(z, y)
         single = self.calculator.compute_distance("hinein", "haben")
-        compound = self.calculator.compute_distance("hinein", "ein") + self.calculator.compute_distance("ein", "haben")
+        compound = self.calculator.compute_distance("hinein", "ein") \
+            + self.calculator.compute_distance("ein", "haben")
         self.assertLessEqual(single, compound)
 
     def test_empty_string(self):

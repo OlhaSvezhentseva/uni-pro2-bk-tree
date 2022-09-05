@@ -13,10 +13,10 @@ class JaccardDistanceCalculator(WordDistanceCalculator):
     """
 
     def compute_distance(self, source: str, target: str) -> float:
-        """The method computes distance between two words"""
+        """The method computes distance between two words."""
         source__bigr = self.__get_bigrams(source)
         target_bigr = self.__get_bigrams(target)
-        intersect = self.__compute_intersection(source__bigr,target_bigr)
+        intersect = self.__compute_intersection(source__bigr, target_bigr)
         try:
             result = intersect/((len(source__bigr) + len(target_bigr)) - intersect)
         except ZeroDivisionError:

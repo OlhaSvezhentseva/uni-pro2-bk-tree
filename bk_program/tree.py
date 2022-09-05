@@ -4,7 +4,7 @@
 import pickle
 from typing import List, Optional
 
-from .node import Node
+from . node import Node
 from . import metrics
 
 
@@ -29,7 +29,7 @@ class Tree:
         self.main_root = self._build_tree(words) if main_root is None else main_root
 
     def _build_tree(self, words: List[str]) -> Node:
-        """The method builds a BK-tree out of a list of words."""
+        """The method builds a BK-tree based on a list of words."""
         main_root = Node(words[0])
         print(f"Total number of words: {len(words)}")
         for index, word in enumerate(words[1:], 1):
@@ -39,7 +39,10 @@ class Tree:
         return main_root
 
     def serialize(self, root_file: str, calculator_file: str) -> None:
-        """The method serializes main root of a tree and calculator used to compute the metrics."""
+        """
+        The method serializes main root of a tree
+        and calculator used to compute the metrics.
+        """
         with open(root_file, "wb") as fp:
             pickle.dump(self.main_root, fp)
         with open(calculator_file, "wb") as f:
@@ -48,8 +51,8 @@ class Tree:
     @classmethod
     def deserialize(cls, root_file: str, calculator_file: str) -> "Tree":
         """
-        The method deserializes main root of a tree and calculator (used to compute the metrics)
-        to reconstruct the already built tree
+        The method deserializes main root of a tree and calculator
+        to reconstruct the already built tree.
         """
         with open(root_file, "rb") as fp:
             main_root = pickle.load(fp)
@@ -58,7 +61,7 @@ class Tree:
         return Tree(calculator, main_root)
 
     def get_tree_height(self, root: Node) -> int:
-        """The method recursively calculates depth of a tree."""
+        """The method recursively calculates height of a tree."""
         if len(root.children) == 0:
             return 0
         else:

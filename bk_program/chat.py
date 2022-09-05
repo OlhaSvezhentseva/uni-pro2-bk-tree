@@ -1,5 +1,6 @@
 # Olha Svezhentseva
 # 01.09.2022
+
 from typing import Tuple, Union
 from nltk import word_tokenize
 
@@ -7,7 +8,7 @@ from .bksearch import BKSearcher
 
 
 class Chat:
-    "A class responsible for communication with the user."
+    """A class responsible for communication with the user."""
 
     WARNINGS = {
         "invalid length": "Input must be in the following format: word number. Try again.",
@@ -33,31 +34,29 @@ class Chat:
             print(f"Type a word and the maximum distance a string can be from your word "
                   "and will still be returned. "
                   "There must be a space between the word and the number.")
-            user_input = input().strip().lower()
+            user_input = input().strip()
             if user_input == "":
                 print("Bye!")
                 break
             status, *result = self._check_input(user_input)
             if status:
-                print(f"Results: {self.searcher.execute_command(result[0], result[1])}")
+                print(f"Results: "
+                      f"{self.searcher.execute_command(result[0], result[1])}")
             else:
                 print(self._show_warning_message(result[0]))
 
     def _check_input(self, user_input: str) -> Union[str, Tuple]:
-        """The method processes user's input. """
+        """The method processes user's input."""
         user_input = word_tokenize(user_input)
         if not self._valid_length(user_input):
             return False, "invalid length"
-
         word = user_input[0]
         d = user_input[1]
-
         if not self._not_number(word):
             return False, "invalid word"
-
         if not self._valid_distance(d):
             return False, "invalid distance"
-        return True, word, d
+        return True, word, float(d)
 
     @staticmethod
     def _valid_length(query: str) -> bool:
@@ -74,11 +73,10 @@ class Chat:
         return False
 
     @staticmethod
-    def _valid_distance(d) -> bool:
+    def _valid_distance(d: str) -> bool:
         """The method checks that distance can be converted to a float."""
         try:
             float(d)
         except ValueError:
             return False
         return True
-
