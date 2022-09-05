@@ -2,15 +2,16 @@
 # 16.08.2022
 
 import unittest
-from metrics.edit_distance import EditDistanceCalculator
+from bk_program.metrics import EditDistanceCalculator
 
 
-class DistanceTestSuite(unittest.TestCase):
-    """A class to test EditDistanceCalculator"""
+class EditDistanceTestSuite(unittest.TestCase):
+    """A class to test EditDistanceCalculator."""
+
     def setUp(self):
         self.calculator = EditDistanceCalculator()
 
-    def test_example(self):
+    def test_general(self):
         actual = self.calculator.compute_distance("vogel", "löffel")
         expected = 4
         self.assertEqual(actual, expected)
@@ -23,7 +24,8 @@ class DistanceTestSuite(unittest.TestCase):
     def test_triangle(self):
         # (x, y) <= d(x, z) + d(z, y)
         single = self.calculator.compute_distance("hinein", "haben")
-        compound = self.calculator.compute_distance("hinein", "ein") + self.calculator.compute_distance("ein", "haben")
+        compound = self.calculator.compute_distance("hinein", "ein") \
+            + self.calculator.compute_distance("ein", "haben")
         self.assertLessEqual(single, compound)
 
     def test_empty_string(self):
